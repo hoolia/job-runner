@@ -17,4 +17,3 @@ test "$MASTER_VERSION" == "$LOCAL_VERSION" || ( echo "Client/Server K8S mismatch
   mv kubernetes/platforms/linux/amd64/kubectl /usr/local/bin &&\
   rm -rf kubernetes)
 
-alias kubectl="kubectl --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token) --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt --namespace=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)"

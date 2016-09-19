@@ -2,6 +2,14 @@
 set -a
 ORIGINAL_JOB=$JOB
 
+function kubectl {
+  /usr/local/bin/kubectl \
+    --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token) \
+    --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt \
+    --namespace=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace) \
+    $*
+}
+
 query_pods(){
   kubectl get pods --no-headers -a --selector=service=$JOB "$@" 2> /dev/null
 }
