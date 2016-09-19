@@ -26,3 +26,4 @@ kubectl config set-context me \
   --cluster=openshift \
   --user=runner \
   --namespace=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
+kubectl config use-context me
