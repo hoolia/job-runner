@@ -4,14 +4,6 @@ export KUBERNETES_MASTER
 NODE_SELECTOR=${NODE_SELECTOR:=""}
 PULL_POLICY=${PULL_POLICY:=""}
 
-function kubectl {
-  /usr/local/bin/kubectl \
-    --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token) \
-    --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt \
-    --namespace=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace) \
-    $*
-}
-
 . /app/processor/reap
 if [[ "$EXIT_CODE" -eq 98 ]]; then
   echo 'Container creation error'

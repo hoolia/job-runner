@@ -17,3 +17,12 @@ test "$MASTER_VERSION" == "$LOCAL_VERSION" || ( echo "Client/Server K8S mismatch
   mv kubernetes/platforms/linux/amd64/kubectl /usr/local/bin &&\
   rm -rf kubernetes)
 
+kubectl config set-credentials runner \
+  --token=$(cat /var/run/secrets/kubernetes.io/serviceaccount/token) \
+kubectl config set-cluster openshift \
+  --server=$KUBERNETES_MASTER \
+  --certificate-authority=/run/secrets/kubernetes.io/serviceaccount/ca.crt
+kubectl config set-context me \
+  --cluster=openshift \
+  --user=runner \
+  --namespace=$(cat /run/secrets/kubernetes.io/serviceaccount/namespace)
